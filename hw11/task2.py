@@ -51,7 +51,7 @@ def menu(ch, eng_fr_dict):
 
 
 def start():
-    eng_fr_dict = {"Hello":"Bonjour", "world":"monde", }
+    eng_fr_dict = {"hello":"bonjour", "world":"monde", }
 
     while True:
         try:
