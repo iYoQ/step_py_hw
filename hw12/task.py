@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from random import randint
-
 def task_1(tuple_1, tuple_2, tuple_3):
     return filter(lambda x: x in tuple_2 and x in tuple_3, set(tuple_1))
 
