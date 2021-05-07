@@ -29,7 +29,6 @@ def again():
 
 def user_input(answer:list, word, max_count_try = 6):
     user_count_try = 0
-    tmp = ''
     wrong_letters = set()
 
     while user_count_try < max_count_try:
@@ -39,10 +38,9 @@ def user_input(answer:list, word, max_count_try = 6):
         if len(user_choice) > 1:
             print('input only 1 letter')
             continue
-        if user_choice == tmp:
+        if user_choice in wrong_letters:
             print('use ANOTHER letter')
             continue
-        tmp = user_choice
 
         if user_choice in word:
             for index, letter in enumerate(word):
@@ -54,12 +52,12 @@ def user_input(answer:list, word, max_count_try = 6):
 
         if '_' not in answer:
             print_stat(answer, wrong_letters)
-            print('word:', ''.join(answer), 'you win')
+            print(f'answer: {word}. you win')
             break
 
     else:
         print_stat(answer, wrong_letters)
-        print('answer:', word, '.you loose')
+        print(f'answer: {word}. you loose')
 
     print_output(word, user_count_try, max_count_try)
     again()
@@ -68,10 +66,10 @@ def start_game():
     try:
         with open('words.txt', 'r') as words:
             word = choice(words.read().split())
+        answer = ['_' for _ in word]
+        user_input(answer, word)
     except IOError as e:
         print('error:', strerror(e.errno))
-    answer = ['_' for i in word]
-    user_input(answer, word)
 
 def start_menu():
     while True:
