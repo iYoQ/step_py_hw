@@ -10,7 +10,7 @@ class Game():
         
         # размеры экрана
         self.screen_width = 720
-        self.screen_height = 460
+        self.screen_height = 500
 
         # необходимые цвета
         self.colors_dict = {
@@ -23,10 +23,13 @@ class Game():
 
         # количество кадров в секунду
         self.fps_controller = pygame.time.Clock()
+        self.fps = 10
 
         # переменная для оторбражения результата
         # (сколько еды съели)
         self.score = 0
+        self.general_score = 0
+        self.level = 0
 
         self.set_surface_and_title()
  
@@ -36,21 +39,21 @@ class Game():
         self.play_surface = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption('Snake Game')
  
-    def refresh_screen(self):
+    def refresh_screen(self, fps=10):
         """обновляем экран и задаем фпс"""
                
         pygame.display.flip()
-        self.fps_controller.tick(10)
+        self.fps_controller.tick(fps)
    
-    def show_score(self, choice=1):
+    def show_score(self, level, choice=1):
         """Отображение результата"""
 
         s_font = pygame.font.SysFont('monaco', 24)
-        s_surf = s_font.render('Score: {0}'.format(self.score), True, self.colors_dict['black'])
+        s_surf = s_font.render(f'Level score: {self.score} | General score: {self.general_score} | Level: {self.level}', True, self.colors_dict['black'])
         s_rect = s_surf.get_rect()
         # дефолтный случай отображаем результат слева сверху
         if choice == 1:
-            s_rect.midtop = (80, 10)
+            s_rect.midtop = (360, 10)
         # при game_overe отображаем результат по центру
         # под надписью game over
         else:

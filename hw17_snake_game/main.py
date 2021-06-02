@@ -24,5 +24,10 @@ while True:
     if snake.check_for_boundaries(game.screen_width, game.screen_height, wall.wall_pos, wall.wall_height):
         game.game_over()
 
-    game.show_score()
-    game.refresh_screen()
+    if game.score > 10:
+        game.level += 1
+        game.fps += 5
+        game.general_score += game.score
+        game.score = 0
+    game.show_score(game.level)
+    game.refresh_screen(game.fps)
