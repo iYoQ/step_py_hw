@@ -18,10 +18,17 @@ class Snake():
         self.direction = "RIGHT"
         
     
-    def draw_snake(self, play_surface, surface_color):
+    def draw_snake(self, play_surface, surface_color_dict, level):
         """Отображаем все сегменты змеи"""
-        
-        play_surface.fill(surface_color)
+        def choice_color_surf(level):
+            return {
+                0: 'white',
+                level % 2: 'orange',
+                level % 3: 'pink',
+                level % 6: 'grey',
+            }[0]
+        play_surface.fill(surface_color_dict[choice_color_surf(level)])
+
         for pos in self.snake_body:
             pygame.draw.rect(
                 play_surface,
@@ -49,7 +56,7 @@ class Snake():
         elif self.direction == "DOWN":
             self.snake_head_pos[1] += self.snake_size
 
-    def snake_body_mechanism(self, score, food_pos, screen_width, screen_height, food_color, colors_food_dict, wall_pos):
+    def snake_body_mechanism(self, score, food_pos, screen_width, screen_height, food_color, game_color_dict, wall_pos):
     
         # Имитируем движение хвоста змеи,
         self.snake_body.insert(0, list(self.snake_head_pos))
@@ -64,14 +71,14 @@ class Snake():
             wall_pos = [random.randrange(1, screen_width / self.snake_size) * self.snake_size,
                     random.randrange(1, screen_height / self.snake_size) * self.snake_size]
 
-            if food_color == 'brown':
+            if food_color == game_color_dict['brown']:
                 score += 1
-            elif food_color == 'black':
+            elif food_color == game_color_dict['black']:
                 score += 2
-            elif food_color == 'red':
+            elif food_color == game_color_dict['red']:
                 score += 3
 
-            food_color = random.choice(list(colors_food_dict.keys()))
+            food_color = game_color_dict[random.choice(list(['red', 'black', 'brown']))]
         else:
             # если не нашли еду, то убираем последний сегмент,
             # если этого не сделать, то змея будет постоянно расти
@@ -87,7 +94,8 @@ class Snake():
                  self.snake_head_pos[1] > screen_height - self.snake_size or self.snake_head_pos[1] < 0 )):
             return True
 
-        if(self.snake_head_pos[0] == wall_pos[0] and (self.snake_head_pos[1] >= wall_pos[1] and self.snake_head_pos[1] <= wall_pos[1]+wall_height-10)):
+        if(self.snake_head_pos[0] == wall_pos[0] and 
+           (self.snake_head_pos[1] >= wall_pos[1] and self.snake_head_pos[1] <= wall_pos[1]+wall_height-10)):
             return True
         
         for block in self.snake_body[1:]:

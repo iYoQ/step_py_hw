@@ -14,11 +14,15 @@ class Game():
 
         # необходимые цвета
         self.colors_dict = {
-            'red'   :pygame.Color(255, 0, 0),
-            'green' :pygame.Color(0, 255, 0),
-            'black' :pygame.Color(0, 0, 0),
-            'white' :pygame.Color(255, 255, 255),
-            'brown' :pygame.Color(165, 42, 42)
+            'red': pygame.Color(255, 0, 0),
+            'green': pygame.Color(0, 255, 0),
+            'black': pygame.Color(0, 0, 0),
+            'white': pygame.Color(255, 255, 255),
+            'brown': pygame.Color(165, 42, 42),
+            'orange': pygame.Color(255, 173, 51),
+            'pink': pygame.Color(239, 114, 177),
+            'grey': pygame.Color(194, 194, 214),
+            'purple': pygame.Color(191, 0, 255)
         }
 
         # количество кадров в секунду
@@ -29,7 +33,7 @@ class Game():
         # (сколько еды съели)
         self.score = 0
         self.general_score = 0
-        self.level = 0
+        self.level = 1
 
         self.set_surface_and_title()
  
@@ -39,11 +43,11 @@ class Game():
         self.play_surface = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption('Snake Game')
  
-    def refresh_screen(self, fps=10):
+    def refresh_screen(self):
         """обновляем экран и задаем фпс"""
                
         pygame.display.flip()
-        self.fps_controller.tick(fps)
+        self.fps_controller.tick(self.fps)
    
     def show_score(self, level, choice=1):
         """Отображение результата"""
@@ -82,6 +86,13 @@ class Game():
             if event.type == pygame.QUIT:
                 Game.exit_()
         return change_to
+
+    def check_score(self):
+        if self.score >= 10:
+            self.level += 1
+            self.fps += 5
+            self.general_score += self.score
+            self.score = 0
        
     def game_over(self):
         """Функция для вывода надписи Game Over и результатов
@@ -90,7 +101,7 @@ class Game():
         go_font = pygame.font.SysFont('monaco', 72)
         go_surf = go_font.render('Game over', True, self.colors_dict['red'])
         go_rect = go_surf.get_rect()
-        go_rect.midtop = (360, 15)
+        go_rect.midtop = (360, 30)
         self.play_surface.blit(go_surf, go_rect)
         self.show_score(0)
         pygame.display.flip()
