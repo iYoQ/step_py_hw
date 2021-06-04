@@ -78,7 +78,7 @@ class Snake():
             elif food_color == game_color_dict['red']:
                 score += 3
 
-            food_color = game_color_dict[random.choice(list(['red', 'black', 'brown']))]
+            food_color = game_color_dict[random.choice(['red', 'black', 'brown'])]
         else:
             # если не нашли еду, то убираем последний сегмент,
             # если этого не сделать, то змея будет постоянно расти

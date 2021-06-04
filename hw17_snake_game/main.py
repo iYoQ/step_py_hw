@@ -7,7 +7,7 @@ from Walls import Walls
 
 game = Game()
 snake = Snake(game.colors_dict['purple'])
-food = Food(game.colors_dict[random.choice(list(['red', 'black', 'brown']))], game.screen_width, game.screen_height)
+food = Food(game.colors_dict[random.choice(['red', 'black', 'brown'])], game.screen_width, game.screen_height)
 wall = Walls(game.colors_dict['green'], game.screen_width, game.screen_height)
    
 change_to = snake.direction
