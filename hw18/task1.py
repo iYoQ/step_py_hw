@@ -38,7 +38,7 @@ class Director(Employee):
     def hire(self, first, last, position, pay, prog_lang=None):
         self.sub.append(position(first, last, pay))
 
-    def dismiss(self, first, last, position=None):
+    def dismiss(self, first, last):
         for index, obj in enumerate(self.sub):
             if obj.fullname == f'{first} {last}':
                 self.sub.pop(index)
