@@ -9,6 +9,9 @@ class Stadium:
         self.__town = town
         self.__capacity = capacity
 
+    def __str__(self):
+        return f'{", ".join(map(str, vars(self).values()))}'
+
     @property
     def name(self):
         return self.__name

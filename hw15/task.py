@@ -9,9 +9,8 @@ class Man:
         self.__country = country
         self.__address = address
 
-    def print_(self):
-        for i in (tmp := vars(self)):
-            print(tmp[i])
+    def __str__(self):
+        return f'{", ".join(map(str, vars(self).values()))}'
 
     @property
     def name(self):
