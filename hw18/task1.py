@@ -36,7 +36,10 @@ class Director(Employee):
         return f'{self.fullname} \nEmployee: {", ".join(map(lambda x: x.fullname, self.sub))}'
 
     def hire(self, first, last, position, pay, prog_lang=None):
-        self.sub.append(position(first, last, pay))
+        if position == Developer:
+            self.sub.append(position(first, last, pay, prog_lang))
+        if position == Support:
+            self.sub.append(position(first, last, pay))
 
     def dismiss(self, first, last):
         for index, obj in enumerate(self.sub):
